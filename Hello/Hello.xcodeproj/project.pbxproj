@@ -13,6 +13,8 @@
 		AE35CF9F1CE03A6D00439004 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AE35CF9D1CE03A6D00439004 /* Main.storyboard */; };
 		AE35CFA11CE03A6D00439004 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AE35CFA01CE03A6D00439004 /* Assets.xcassets */; };
 		AE35CFA41CE03A6D00439004 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AE35CFA21CE03A6D00439004 /* LaunchScreen.storyboard */; };
+		AE35CFAE1CE0665300439004 /* NLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AE35CFAD1CE0665300439004 /* NLoginViewController.m */; };
+		AE35CFB11CE0832300439004 /* UserSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AE35CFB01CE0832300439004 /* UserSelectViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +28,10 @@
 		AE35CFA01CE03A6D00439004 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AE35CFA31CE03A6D00439004 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AE35CFA51CE03A6D00439004 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AE35CFAC1CE0665300439004 /* NLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NLoginViewController.h; sourceTree = "<group>"; };
+		AE35CFAD1CE0665300439004 /* NLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NLoginViewController.m; sourceTree = "<group>"; };
+		AE35CFAF1CE0832300439004 /* UserSelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserSelectViewController.h; sourceTree = "<group>"; };
+		AE35CFB01CE0832300439004 /* UserSelectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserSelectViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +64,7 @@
 		AE35CF931CE03A6D00439004 /* Hello */ = {
 			isa = PBXGroup;
 			children = (
+				AE35CFAB1CE0662300439004 /* LoginAndConfig */,
 				AE35CF971CE03A6D00439004 /* AppDelegate.h */,
 				AE35CF981CE03A6D00439004 /* AppDelegate.m */,
 				AE35CF9A1CE03A6D00439004 /* ViewController.h */,
@@ -77,6 +84,17 @@
 				AE35CF951CE03A6D00439004 /* main.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		AE35CFAB1CE0662300439004 /* LoginAndConfig */ = {
+			isa = PBXGroup;
+			children = (
+				AE35CFAC1CE0665300439004 /* NLoginViewController.h */,
+				AE35CFAD1CE0665300439004 /* NLoginViewController.m */,
+				AE35CFAF1CE0832300439004 /* UserSelectViewController.h */,
+				AE35CFB01CE0832300439004 /* UserSelectViewController.m */,
+			);
+			name = LoginAndConfig;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -153,6 +171,8 @@
 				AE35CF9C1CE03A6D00439004 /* ViewController.m in Sources */,
 				AE35CF991CE03A6D00439004 /* AppDelegate.m in Sources */,
 				AE35CF961CE03A6D00439004 /* main.m in Sources */,
+				AE35CFAE1CE0665300439004 /* NLoginViewController.m in Sources */,
+				AE35CFB11CE0832300439004 /* UserSelectViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -301,6 +321,7 @@
 				AE35CFAA1CE03A6D00439004 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
