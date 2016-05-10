@@ -7,6 +7,7 @@
 //
 
 #import "NLoginViewController.h"
+#import "UserAddViewController.h"
 
 @interface NLoginViewController()
 
@@ -17,6 +18,14 @@
 
 
 @implementation NLoginViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+}
 
 
 #pragma mark - Table view data source
@@ -124,7 +133,12 @@
             UserSelectViewController *userSelectViewController = [[UserSelectViewController alloc] initWithStyle:UITableViewStyleGrouped];
             userSelectViewController.delegate = self;
             [self.navigationController pushViewController:userSelectViewController animated:YES];
+            
         } else if (1 == indexPath.row) {
+            UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+            UserSelectViewController *userAddViewController = [storyboard instantiateViewControllerWithIdentifier:@"UserAddViewController"];
+            userAddViewController.delegate = self;
+            [self.navigationController pushViewController:userAddViewController animated:YES];
             
         } else if (2 == indexPath.row) {
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"注意"
@@ -145,7 +159,6 @@
 
             [self presentViewController:alert animated:YES completion:nil];
         }
-        
     }
 }
 

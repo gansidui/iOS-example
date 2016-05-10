@@ -15,6 +15,7 @@
 		AE35CFA41CE03A6D00439004 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AE35CFA21CE03A6D00439004 /* LaunchScreen.storyboard */; };
 		AE35CFAE1CE0665300439004 /* NLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AE35CFAD1CE0665300439004 /* NLoginViewController.m */; };
 		AE35CFB11CE0832300439004 /* UserSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AE35CFB01CE0832300439004 /* UserSelectViewController.m */; };
+		AE35CFBE1CE1860D00439004 /* UserAddViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AE35CFBD1CE1860D00439004 /* UserAddViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,8 @@
 		AE35CFAD1CE0665300439004 /* NLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NLoginViewController.m; sourceTree = "<group>"; };
 		AE35CFAF1CE0832300439004 /* UserSelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserSelectViewController.h; sourceTree = "<group>"; };
 		AE35CFB01CE0832300439004 /* UserSelectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserSelectViewController.m; sourceTree = "<group>"; };
+		AE35CFBC1CE1860D00439004 /* UserAddViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserAddViewController.h; sourceTree = "<group>"; };
+		AE35CFBD1CE1860D00439004 /* UserAddViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserAddViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,6 +96,8 @@
 				AE35CFAD1CE0665300439004 /* NLoginViewController.m */,
 				AE35CFAF1CE0832300439004 /* UserSelectViewController.h */,
 				AE35CFB01CE0832300439004 /* UserSelectViewController.m */,
+				AE35CFBC1CE1860D00439004 /* UserAddViewController.h */,
+				AE35CFBD1CE1860D00439004 /* UserAddViewController.m */,
 			);
 			name = LoginAndConfig;
 			sourceTree = "<group>";
@@ -171,6 +176,7 @@
 				AE35CF9C1CE03A6D00439004 /* ViewController.m in Sources */,
 				AE35CF991CE03A6D00439004 /* AppDelegate.m in Sources */,
 				AE35CF961CE03A6D00439004 /* main.m in Sources */,
+				AE35CFBE1CE1860D00439004 /* UserAddViewController.m in Sources */,
 				AE35CFAE1CE0665300439004 /* NLoginViewController.m in Sources */,
 				AE35CFB11CE0832300439004 /* UserSelectViewController.m in Sources */,
 			);

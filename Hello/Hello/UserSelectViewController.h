@@ -14,10 +14,7 @@
 
 @end
 
-@interface UserSelectViewController : UITableViewController {
-    UIButton *_addBtn;
-    UIButton *_cancelBtn;
-}
+@interface UserSelectViewController : UITableViewController
 
 @property (nonatomic, assign) id<UserSelectViewControllerDelegate> delegate;
 
