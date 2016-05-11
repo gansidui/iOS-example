@@ -8,6 +8,7 @@
 
 #import "NLoginViewController.h"
 #import "UserAddViewController.h"
+#import "SettingViewController.h"
 
 @interface NLoginViewController()
 
@@ -27,6 +28,12 @@
     [super didReceiveMemoryWarning];
 }
 
+- (IBAction)setting:(id)sender {
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+    SettingViewController *settingViewController = [storyboard instantiateViewControllerWithIdentifier:@"SettingViewController"];
+    
+    [self.navigationController pushViewController:settingViewController animated:YES];
+}
 
 #pragma mark - Table view data source
 

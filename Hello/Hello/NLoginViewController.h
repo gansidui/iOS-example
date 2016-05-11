@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "UserSelectViewController.h"
 
-@interface NLoginViewController : UITableViewController<UserSelectViewControllerDelegate>
+@interface NLoginViewController : UITableViewController<UITableViewDataSource,UserSelectViewControllerDelegate>
 
 @end
