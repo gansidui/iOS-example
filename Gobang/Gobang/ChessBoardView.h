@@ -14,18 +14,19 @@
 
 @interface ChessBoardView : UIView
 
-// 设置棋子，行数和列数都从1开始，[1,15][1,15]
-- (void)setChess:(int)type withRow:(int)row withColumn:(int)column;
+- (void)restartChess;
+- (void)regretChess;
+- (void)AI;
 
 @end
 
 
 @interface ChessManView : UIView
 
-@property (nonatomic, assign) int type;
+@property (nonatomic, assign) char type;
 @property (nonatomic, assign) int x;
 @property (nonatomic, assign) int y;
 
-- (id)initWithType:(int)type x:(int)x y:(int)y;
+- (id)initWithType:(char)type x:(int)x y:(int)y;
 
 @end

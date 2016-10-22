@@ -13,7 +13,7 @@
 		6AD391B61DBA3D1A00ABE76A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6AD391B41DBA3D1A00ABE76A /* Main.storyboard */; };
 		6AD391B81DBA3D1A00ABE76A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6AD391B71DBA3D1A00ABE76A /* Assets.xcassets */; };
 		6AD391BB1DBA3D1A00ABE76A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6AD391B91DBA3D1A00ABE76A /* LaunchScreen.storyboard */; };
-		6AD391C41DBA3F3F00ABE76A /* ChessBoardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AD391C31DBA3F3F00ABE76A /* ChessBoardView.m */; };
+		6AD391C41DBA3F3F00ABE76A /* ChessBoardView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 6AD391C31DBA3F3F00ABE76A /* ChessBoardView.mm */; };
 		6AD391C71DBA42D400ABE76A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6AD391C61DBA42D400ABE76A /* CoreGraphics.framework */; };
 		6AD391CA1DBA886800ABE76A /* FiveChessAI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6AD391C81DBA886800ABE76A /* FiveChessAI.cpp */; };
 		6AD391CD1DBB976B00ABE76A /* FiveChess.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 6AD391CB1DBB976B00ABE76A /* FiveChess.cpp */; };
@@ -31,7 +31,7 @@
 		6AD391BA1DBA3D1A00ABE76A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6AD391BC1DBA3D1A00ABE76A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6AD391C21DBA3F3F00ABE76A /* ChessBoardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChessBoardView.h; sourceTree = "<group>"; };
-		6AD391C31DBA3F3F00ABE76A /* ChessBoardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChessBoardView.m; sourceTree = "<group>"; };
+		6AD391C31DBA3F3F00ABE76A /* ChessBoardView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ChessBoardView.mm; sourceTree = "<group>"; };
 		6AD391C61DBA42D400ABE76A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		6AD391C81DBA886800ABE76A /* FiveChessAI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FiveChessAI.cpp; sourceTree = "<group>"; };
 		6AD391C91DBA886800ABE76A /* FiveChessAI.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = FiveChessAI.hpp; sourceTree = "<group>"; };
@@ -81,7 +81,7 @@
 				6AD391BC1DBA3D1A00ABE76A /* Info.plist */,
 				6AD391AB1DBA3D1A00ABE76A /* Supporting Files */,
 				6AD391C21DBA3F3F00ABE76A /* ChessBoardView.h */,
-				6AD391C31DBA3F3F00ABE76A /* ChessBoardView.m */,
+				6AD391C31DBA3F3F00ABE76A /* ChessBoardView.mm */,
 				6AD391C81DBA886800ABE76A /* FiveChessAI.cpp */,
 				6AD391C91DBA886800ABE76A /* FiveChessAI.hpp */,
 				6AD391CB1DBB976B00ABE76A /* FiveChess.cpp */,
@@ -178,7 +178,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6AD391C41DBA3F3F00ABE76A /* ChessBoardView.m in Sources */,
+				6AD391C41DBA3F3F00ABE76A /* ChessBoardView.mm in Sources */,
 				6AD391CA1DBA886800ABE76A /* FiveChessAI.cpp in Sources */,
 				6AD391CD1DBB976B00ABE76A /* FiveChess.cpp in Sources */,
 				6AD391B31DBA3D1A00ABE76A /* ViewController.m in Sources */,

@@ -7,12 +7,19 @@
 //
 
 #import "ChessBoardView.h"
+#import "FiveChessAI.hpp"
 
 #define ROW_COUNT    (15)
 #define COLUMN_COUNT (15)
 #define CHESS_WIDTH  (20)
 #define CHESS_HEIGHT (20)
 
+@interface ChessBoardView()
+{
+    FiveChessAI  chessAI;
+    char chessMap[ROW_COUNT][COLUMN_COUNT];
+}
+@end
 
 @implementation ChessBoardView
 
@@ -35,16 +42,12 @@
     for (int i = 0; i < COLUMN_COUNT; ++i) {
         CGContextFillRect(context, CGRectMake(startX + i * CHESS_WIDTH, startY, 1, (ROW_COUNT - 1) * CHESS_HEIGHT));
     }
-    
-    [self setChess:CHESS_TYPE_WHITE withRow:1 withColumn:1];
-    [self setChess:CHESS_TYPE_BLACK withRow:1 withColumn:2];
-    [self setChess:CHESS_TYPE_BLACK withRow:2 withColumn:1];
-    [self setChess:CHESS_TYPE_BLACK withRow:5 withColumn:5];
-    [self setChess:CHESS_TYPE_BLACK withRow:5 withColumn:6];
-    [self setChess:CHESS_TYPE_BLACK withRow:8 withColumn:8];
 }
 
-- (void)setChess:(int)type withRow:(int)row withColumn:(int)column {
+// 设置棋子，行数和列数都从1开始，[1,15][1,15]
+- (void)setChess:(char)type withRow:(int)row withColumn:(int)column {
+    chessMap[row-1][column-1] = type;
+    
     int x = CHESS_WIDTH * column - CHESS_WIDTH / 2;
     int y = CHESS_HEIGHT * row - CHESS_HEIGHT / 2;
     ChessManView *chessView = [[ChessManView alloc] initWithType:type x:x y:y];
@@ -57,9 +60,30 @@
     int column = (touchPoint.x + CHESS_WIDTH / 2) / CHESS_WIDTH;
     
     if (row >= 1 && row <= ROW_COUNT && column >= 1 && column <= COLUMN_COUNT) {
-        int type = CHESS_TYPE_BLACK;
+        char type = chessAI.getCurrentPlayer(chessMap);
         [self setChess:type withRow:row withColumn:column];
     }
+}
+
+- (void)restartChess {
+    [self clearChessMap];
+    for (UIView *view in self.subviews) {
+        [view removeFromSuperview];
+    }
+}
+
+- (void)regretChess {
+    
+}
+
+- (void)AI {
+    std::pair<int, int> position = chessAI.goAI(chessMap);
+    char type = chessAI.getCurrentPlayer(chessMap);
+    [self setChess:type withRow:position.first+1 withColumn:position.second+1];
+}
+
+- (void)clearChessMap {
+    memset(chessMap, SPACE, sizeof(chessMap));
 }
 
 @end
@@ -69,7 +93,7 @@
 
 @implementation ChessManView
 
-- (id)initWithType:(int)type x:(int)x y:(int)y {
+- (id)initWithType:(char)type x:(int)x y:(int)y {
     if (self = [super init]) {
         self.frame = CGRectMake(x, y, CHESS_WIDTH, CHESS_HEIGHT);
         self.backgroundColor = [UIColor clearColor];
@@ -82,10 +106,10 @@
 
 - (void)drawRect:(CGRect)rect {
     CGContextRef context = UIGraphicsGetCurrentContext();
-    if (_type == CHESS_TYPE_BLACK) {
+    if (_type == BLACK_CHESS) {
         [[UIColor blackColor] set];
         CGContextFillEllipseInRect(context, CGRectMake(0, 0, CHESS_WIDTH, CHESS_HEIGHT));
-    } else if (_type == CHESS_TYPE_WHITE) {
+    } else if (_type == WHITE_CHESS) {
         [[UIColor grayColor] setStroke];
         [[UIColor whiteColor] setFill];
         CGContextStrokeEllipseInRect(context, CGRectMake(0, 0, CHESS_WIDTH, CHESS_HEIGHT));
