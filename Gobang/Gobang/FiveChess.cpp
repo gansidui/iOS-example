@@ -119,6 +119,38 @@ int FiveChess::IsKinjite(int row,int col)
 void FiveChess::UpdateLimit()
 {
     int MM = 2;
+    int le = 9999, ri = -1, to = 9999, bo = -1;
+    
+    nCount = 0;
+    
+    for (int i = 0; i < SIZE; ++i) {
+        for (int j = 0; j < SIZE; ++j) {
+            if (chessMap[i][j] != SPACE) {
+                if (i < to) {
+                    to = i;
+                }
+                if (i > bo) {
+                    bo = i;
+                }
+                if (j < le) {
+                    le = j;
+                }
+                if (j > ri) {
+                    ri = j;
+                }
+            }
+            
+            ++nCount;
+        }
+    }
+    
+    left = max(0, le - MM);
+    right = min(SIZE - 1, ri + MM);
+    top = max(0, to - MM);
+    bottom = min(SIZE - 1, bo + MM);
+    
+    
+    /*
     if(1 == nCount)
     {
         left = max(0,currentY-MM);
@@ -169,6 +201,7 @@ void FiveChess::UpdateLimit()
             }
         }
     }
+     */
 }
 
 /********对棋型的统计*******************************************/
@@ -1180,6 +1213,7 @@ void FiveChess::Search(int row,int col,char chessFlag)
 {
     //初始化
     changlian = cheng5 = huo4 = chong4 = tiaochong4 = lian3 = tiao3 = chong3 = lian2 = tiao2 = 0;
+    chong2 = huo1 = chong1 = 0;
     int res;
     pair<int,int> pi;
     pair<int,pair<int,int> > pip;
@@ -2003,6 +2037,8 @@ bool FiveChess::PeopleAttack(int r,int c,int depthCFromIGT)
  */
 void FiveChess::AI()
 {
+    UpdateLimit();
+    
     isDefend = false;
     AIState = 0;
     
@@ -2226,6 +2262,21 @@ bool FiveChess::LayOut()
     // 只考虑前面三步的布局
     if(nCount >= 3)
         return false;
+    
+    // 暂时写死currentX currentY
+    if (nCount == 1) {
+        currentX = currentY = 7;
+    } else if (nCount == 2) {
+        for (int i = 0; i < SIZE; ++i) {
+            for (int j = 0; j < SIZE; ++j) {
+                if (chessMap[i][j] != SPACE && i != 7 && j != 7) {
+                    currentX = i;
+                    currentY = j;
+                }
+            }
+        }
+    }
+    
     
     if(BLACK_CHESS == cComputer)// 计算机执黑，只考虑第三手
     {

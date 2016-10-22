@@ -41,7 +41,7 @@ std::pair<int, int> FiveChessAI::goAI(char chessMap[15][15]) {
     
     // 如果是空白棋盘，则下中元
     if (nBlack == 0 && nWhite == 0) {
-        return std::pair<int, int>(8, 8);
+        return std::pair<int, int>(7, 7);
     }
 
     // 拷贝棋盘
@@ -49,13 +49,13 @@ std::pair<int, int> FiveChessAI::goAI(char chessMap[15][15]) {
     memcpy(&(fiveChess.chessMap[0][0]), &(chessMap[0][0]), 15*15);
     
     // VC 的攻击深度和防御深度设置在这里初始化，可以动态设置
-    fiveChess.VCDEPTH = 4;
-    fiveChess.VCDEPTH_END = 8;
-    fiveChess.VCDEPTH_DIS =2;
+    fiveChess.VCDEPTH = 3;
+    fiveChess.VCDEPTH_END = 3;
+    fiveChess.VCDEPTH_DIS =1;
     
-    fiveChess.VCDE_DEPTH = 4;
-    fiveChess.VCDE_DEPTH_END = 8;
-    fiveChess.VCDE_DEPTH_DIS = 2;
+    fiveChess.VCDE_DEPTH = 3;
+    fiveChess.VCDE_DEPTH_END = 3;
+    fiveChess.VCDE_DEPTH_DIS = 1;
     
     fiveChess.grade = 2;
     

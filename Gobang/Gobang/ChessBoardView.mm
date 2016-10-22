@@ -23,6 +23,13 @@
 
 @implementation ChessBoardView
 
+- (instancetype)initWithFrame:(CGRect)frame {
+    if (self = [super initWithFrame:frame]) {
+        [self clearChessMap];
+    }
+    return self;
+}
+
 - (void)drawRect:(CGRect)rect {
     [self drawBackground];
 }
