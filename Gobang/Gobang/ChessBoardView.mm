@@ -9,6 +9,8 @@
 #import "ChessBoardView.h"
 #import "FiveChessAI.hpp"
 
+#include <vector>
+
 #define ROW_COUNT    (15)
 #define COLUMN_COUNT (15)
 #define CHESS_WIDTH  (20)
@@ -18,6 +20,7 @@
 {
     FiveChessAI  chessAI;
     char chessMap[ROW_COUNT][COLUMN_COUNT];
+    std::vector<std::pair<int, int>> chessRecord;
 }
 @end
 
@@ -54,6 +57,7 @@
 // 设置棋子，行数和列数都从1开始，[1,15][1,15]
 - (void)setChess:(char)type withRow:(int)row withColumn:(int)column {
     chessMap[row-1][column-1] = type;
+    chessRecord.push_back(std::pair<int, int>(row, column));
     
     int x = CHESS_WIDTH * column - CHESS_WIDTH / 2;
     int y = CHESS_HEIGHT * row - CHESS_HEIGHT / 2;
@@ -80,7 +84,21 @@
 }
 
 - (void)regretChess {
-    
+    if (chessRecord.size()) {
+        auto position = chessRecord.back();
+        chessRecord.pop_back();
+        int row = position.first;
+        int column = position.second;
+        chessMap[row-1][column-1] = SPACE;
+        
+        int x = CHESS_WIDTH * column - CHESS_WIDTH / 2;
+        int y = CHESS_HEIGHT * row - CHESS_HEIGHT / 2;
+        for (ChessManView *view in self.subviews) {
+            if (view.x == x && view.y == y) {
+                [view removeFromSuperview];
+            }
+        }
+    }
 }
 
 - (void)AI {
@@ -91,6 +109,7 @@
 
 - (void)clearChessMap {
     memset(chessMap, SPACE, sizeof(chessMap));
+    chessRecord.clear();
 }
 
 @end
