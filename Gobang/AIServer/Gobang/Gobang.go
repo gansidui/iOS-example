@@ -10,7 +10,7 @@ func AI(chessMap [][]byte) (row, col int) {
 
 	for i := 0; i < 15; i++ {
 		for j := 0; j < 15; j++ {
-			s[15*i + j] = chessMap[i][j];
+			s[15*i+j] = chessMap[i][j]
 		}
 	}
 
