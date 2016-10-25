@@ -5,6 +5,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"strconv"
+	"time"
 
 	"./Gobang"
 	"github.com/bitly/go-simplejson"
@@ -95,7 +96,7 @@ func handlerAI(w http.ResponseWriter, r *http.Request) {
 
 		steps_json.Set("x", strconv.FormatInt(int64(row+1), 10))
 		steps_json.Set("y", strconv.FormatInt(int64(col+1), 10))
-		steps_json.Set("time", nil)
+		steps_json.Set("time", getTime())
 
 		w_json := r_json
 		w_json.SetPath([]string{"body", "steps"}, []*simplejson.Json{steps_json})
@@ -107,4 +108,11 @@ func handlerAI(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("---------------------------------------------------")
 	fmt.Println("reponse type:", msg_type, string(w_json_bytes))
 	fmt.Println("---------------------------------------------------")
+}
+
+func getTime() string {
+	now := time.Now()
+	year, mon, day := now.Date()
+	hour, min, sec := now.Clock()
+	return fmt.Sprintf("%d%d%d%02d%02d%02d", year, mon, day, hour, min, sec)
 }
