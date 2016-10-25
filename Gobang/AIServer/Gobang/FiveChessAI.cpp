@@ -7,6 +7,8 @@
 //
 
 #include "FiveChessAI.hpp"
+#include <string.h>
+#include <stdlib.h>
 
 FiveChessAI::FiveChessAI() {
     

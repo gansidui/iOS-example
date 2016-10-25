@@ -1,7 +1,9 @@
 #include "FiveChess.hpp"
 
-#include<iostream>
-#include<algorithm>
+#include <iostream>
+#include <algorithm>
+#include <stdlib.h>
+#include <string.h>
 using namespace std;
 
 FiveChess::FiveChess()

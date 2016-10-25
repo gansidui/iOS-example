@@ -11,6 +11,7 @@ import (
 )
 
 func main() {
+	fmt.Println("listening: 80 ...")
 	http.HandleFunc("/p0", handlerP0)
 	http.HandleFunc("/p1", handlerP1)
 	http.ListenAndServe(":80", nil)
