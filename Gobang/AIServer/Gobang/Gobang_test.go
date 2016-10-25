@@ -18,6 +18,6 @@ func TestAI(t *testing.T) {
 	}
 	chessMap[7][7] = 'B'
 
-	row, col := AI(chessMap)
-	println(row, col)
+	row, col, flag := AI(chessMap)
+	println(row, col, flag)
 }

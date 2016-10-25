@@ -5,17 +5,15 @@ import (
 	"io/ioutil"
 	"net/http"
 	"strconv"
-	// "./Gobang"
 
+	"./Gobang"
 	"github.com/bitly/go-simplejson"
 )
 
 func main() {
-	test()
-
-	// http.HandleFunc("/p0", handlerP0)
-	// http.HandleFunc("/p1", handlerP1)
-	// http.ListenAndServe(":8989", nil)
+	http.HandleFunc("/p0", handlerP0)
+	http.HandleFunc("/p1", handlerP1)
+	http.ListenAndServe(":80", nil)
 }
 
 func handlerP0(w http.ResponseWriter, r *http.Request) {
@@ -31,7 +29,7 @@ func handlerP0(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	fmt.Println("request: %v", r_json)
+	fmt.Println("request: ", string(r_data))
 
 	player := "" // "player_white" or "player_black"
 	m := r_json.Get("body").MustMap()
@@ -41,6 +39,7 @@ func handlerP0(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// 请求和回复的数据结构都一样，修改部分字段回复即可
+	// 回复下棋的URL
 	w_json := r_json
 	w_json.SetPath([]string{"head", "result"}, 0)
 	w_json.SetPath([]string{"head", "err_msg"}, "success")
@@ -52,44 +51,66 @@ func handlerP0(w http.ResponseWriter, r *http.Request) {
 }
 
 func handlerP1(w http.ResponseWriter, r *http.Request) {
+	r_data, err := ioutil.ReadAll(r.Body)
+	if err != nil {
+		return
+	}
+	defer r.Body.Close()
 
-}
+	r_json, err := simplejson.NewJson(r_data)
+	if err != nil {
+		return
+	}
 
-func test() {
-	json := simplejson.New()
-	head := simplejson.New()
+	fmt.Println("request: ", string(r_data))
 
-	head.Set("type", "0")
-	head.Set("result", 0)
-	head.Set("err_msg", "success")
+	// 读取棋盘信息
+	chessMap := make([][]byte, 0)
+	for i := 0; i < 15; i++ {
+		sliceByte := make([]byte, 0)
+		for j := 0; j < 15; j++ {
+			sliceByte = append(sliceByte, ' ')
+		}
+		chessMap = append(chessMap, sliceByte)
+	}
 
-	json.Set("head", head)
+	m := r_json.GetPath("body", "steps").MustArray()
+	for _, v := range m {
+		var m2 map[string]interface{} = v.(map[string]interface{})
+		x := m2["x"].(string)
+		y := m2["y"].(string)
+		side := m2["side"].(string)
 
-	body := simplejson.New()
-	player := simplejson.New()
-	player.Set("type", "MACHINE")
-	player.Set("name", "alpha")
-	player.Set("url", "localhost:8989/hello/P1")
-	player.Set("side", "w")
-	body.Set("player_white", player)
+		xi, _ := strconv.ParseInt(x, 10, 8)
+		yi, _ := strconv.ParseInt(y, 10, 8)
 
-	json.Set("body", body)
+		if xi >= 1 && xi <= 15 && yi >= 1 && yi <= 15 {
+			if side == "w" {
+				chessMap[xi-1][yi-1] = 'W'
+			} else {
+				chessMap[xi-1][yi-1] = 'B'
+			}
+		}
+	}
 
-	json_byte, _ := json.Encode()
-	fmt.Println(string(json_byte))
+	// AI
+	row, col, flag := Gobang.AI(chessMap)
 
-	// ----------
+	// response
+	steps_json := simplejson.New()
+	if flag == 1 {
+		steps_json.Set("side", "b")
+	} else {
+		steps_json.Set("side", "w")
+	}
 
-	r_json, _ := simplejson.NewJson(json_byte)
+	steps_json.Set("x", strconv.FormatInt(int64(row+1), 10))
+	steps_json.Set("y", strconv.FormatInt(int64(col+1), 10))
+	steps_json.Set("time", nil)
 
-	fmt.Println(r_json.Get("head").Get("err_msg"))
-	fmt.Println(strconv.FormatInt(r_json.Get("head").Get("type").MustInt64(), 10))
+	w_json := r_json
+	w_json.SetPath([]string{"body", "steps"}, []*simplejson.Json{steps_json})
 
-	fmt.Println(r_json.GetPath("body", "player_white", "url").MustString())
-
-	// r_json.SetPath(branch, val)
-	// fmt.Println(r_json.MustString())
-	r_json.SetPath([]string{"body", "player_white", "url"}, "www.baidu.com")
-
-	fmt.Println(r_json.GetPath("body", "player_white", "url").MustString())
+	w_json_bytes, _ := w_json.Encode()
+	w.Write(w_json_bytes)
 }

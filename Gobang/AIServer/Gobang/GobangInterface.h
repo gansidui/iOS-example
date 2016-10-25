@@ -5,7 +5,7 @@
 extern "C" {
 #endif
 
-void AI_interface(char *arr, int *row, int *col);
+void AI_interface(char *arr, int *row, int *col, int *flag);
 
 #ifdef __cplusplus
 }
