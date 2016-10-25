@@ -4,6 +4,7 @@
 #include <algorithm>
 #include <stdlib.h>
 #include <string.h>
+#include <sys/time.h>
 using namespace std;
 
 FiveChess::FiveChess()
@@ -1836,6 +1837,11 @@ pair<int,int> FiveChess::GetCurrentMaxPoint(char chessFlag)
 //这个函数模拟计算机，只有一条叉
 void FiveChess::InitGameTree(int row,int col,bool& flag,int depth,int& depthC,int& depthP,bool& stop,int depthRecord)
 {
+    // 超时控制
+    if (isTimeout()) {
+        return;
+    }
+
     if(stop || depth > DEPTH || depth > depthRecord+1)
         return ;
     
@@ -1890,6 +1896,11 @@ void FiveChess::InitGameTree(int row,int col,bool& flag,int depth,int& depthC,in
 //这个函数模拟人，类似 InitGameTree()
 void FiveChess::AgainGameTree(int row,int col,int depth,int& depthC,int& depthP,bool& stop,int& depthRecord)
 {
+    // 超时控制
+    if (isTimeout()) {
+        return;
+    }
+
     // 这里的depth上限应该适当高些，防止进行vc攻击
     if(stop || depth > 12 || depth >= depthRecord) // 这里的depthCFromIGT的意义详见 PeopleAttack()
         return ;
@@ -2039,6 +2050,7 @@ bool FiveChess::PeopleAttack(int r,int c,int depthCFromIGT)
  */
 void FiveChess::AI()
 {
+    startTime = 0;
     UpdateLimit();
     
     isDefend = false;
@@ -2375,6 +2387,11 @@ bool FiveChess::LayOut()
 // VC 攻击树
 void FiveChess::VCAttackTree(int type,int row,int col,char cOneself,char cOpposite,int depth,bool& flag,int& ansDepth,int depthRecord)
 {
+    // 超时控制
+    if (isTimeout()) {
+        return;
+    }
+    
     // 深度控制,深度太深的话，复杂度就太高了，depthRecord用来记录已经搜过的点中达必赢点的最小深度
     if( depth>depthMM || depth>depthRecord )
         return ;
@@ -2915,4 +2932,17 @@ int FiveChess::IsCombForVC(int row,int col,char chessFlag)
         return 1;
     
     return 0;
+}
+
+long FiveChess::getCurrentTime() {
+    struct timeval tv;
+    gettimeofday(&tv,NULL);
+    return tv.tv_sec * 1000 + tv.tv_usec / 1000;
+}
+
+bool FiveChess::isTimeout() {
+    if (startTime + timeoutMS < getCurrentTime()) {
+        return true;
+    }
+    return false;
 }

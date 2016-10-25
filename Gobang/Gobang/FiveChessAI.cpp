@@ -61,6 +61,8 @@ std::pair<int, int> FiveChessAI::goAI(char chessMap[15][15]) {
     
     fiveChess.grade = 2;
     
+    fiveChess.timeoutMS = 8000; // 超时时间
+    
     fiveChess.AI();
     
     return std::pair<int, int>(fiveChess.comX, fiveChess.comY);

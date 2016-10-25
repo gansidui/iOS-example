@@ -140,6 +140,13 @@ private:
     void ControlDepth();   // 判断局势，从而设置 DEPTH
     bool LayOut();   // 开始的时候布局
     
+    
+    // ----
+    long startTime;
+    long getCurrentTime();  // 获取当前时间，用于超时判断
+    bool isTimeout();    // 超时判断，返回true表示超时
+    ////
+    
 public:
     char cComputer;  //计算机执的棋的颜色
     char cPeople;    //人执的棋的颜色
@@ -175,6 +182,9 @@ public:
      */
     int AIState;  // 在 VCAttack() 中设置
     
+    // 超时时间限制，单位ms
+    // 在DFS的时候应该优先检查是否超时，若超时则应该立即返回
+    long timeoutMS;
 };
 
 
