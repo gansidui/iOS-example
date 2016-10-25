@@ -4,6 +4,7 @@
 #include <algorithm>
 #include <stdlib.h>
 #include <string.h>
+#include <stdio.h>
 #include <sys/time.h>
 using namespace std;
 
@@ -2065,9 +2066,11 @@ void FiveChess::AI()
     if(1 == mustWin)  //有成五点
         return ;
     
+    printf("******** VCAttacking *******\n");
     // AI 等级为 2 时才进行 VC 攻击
     if(2 == grade && VCAttack()) // 可以进行 VC 攻击
         return ;
+    printf("******** VCAttack finished *******\n");
     
     ControlDepth(); // 设置递归深度
     
@@ -2208,7 +2211,7 @@ void FiveChess::AI()
 // 当对方进攻不积极的时候，这时计算机就应该主动进攻
 void FiveChess::ControlDepth()
 {
-    DEPTH = 12; //默认
+    DEPTH = 8; //默认
     
     if(nCount < 6)
     {
