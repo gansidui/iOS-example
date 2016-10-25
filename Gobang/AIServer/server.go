@@ -99,7 +99,10 @@ func handlerAI(w http.ResponseWriter, r *http.Request) {
 		steps_json.Set("time", getTime())
 
 		w_json := r_json
-		w_json.SetPath([]string{"body", "steps"}, []*simplejson.Json{steps_json})
+
+		stepArray := r_json.GetPath("body", "steps").MustArray()
+		stepArray = append(stepArray, steps_json)
+		w_json.SetPath([]string{"body", "steps"}, stepArray)
 	}
 
 	w_json_bytes, _ := w_json.Encode()
