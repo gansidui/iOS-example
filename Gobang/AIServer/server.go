@@ -30,7 +30,9 @@ func handlerP0(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	fmt.Println("request: ", string(r_data))
+	fmt.Println("---------------------------------------------------")
+	fmt.Println("request p0: ", string(r_data))
+	fmt.Println("---------------------------------------------------")
 
 	player := "" // "player_white" or "player_black"
 	m := r_json.Get("body").MustMap()
@@ -49,6 +51,10 @@ func handlerP0(w http.ResponseWriter, r *http.Request) {
 
 	w_json_bytes, _ := w_json.Encode()
 	w.Write(w_json_bytes)
+
+	fmt.Println("---------------------------------------------------")
+	fmt.Println("reponse p0: ", string(w_json_bytes))
+	fmt.Println("---------------------------------------------------")
 }
 
 func handlerP1(w http.ResponseWriter, r *http.Request) {
@@ -63,7 +69,9 @@ func handlerP1(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	fmt.Println("request: ", string(r_data))
+	fmt.Println("---------------------------------------------------")
+	fmt.Println("request p1: ", string(r_data))
+	fmt.Println("---------------------------------------------------")
 
 	// 读取棋盘信息
 	chessMap := make([][]byte, 0)
@@ -114,4 +122,8 @@ func handlerP1(w http.ResponseWriter, r *http.Request) {
 
 	w_json_bytes, _ := w_json.Encode()
 	w.Write(w_json_bytes)
+
+	fmt.Println("---------------------------------------------------")
+	fmt.Println("reponse p1: ", string(w_json_bytes))
+	fmt.Println("---------------------------------------------------")
 }
