@@ -52,11 +52,11 @@ std::pair<int, int> FiveChessAI::goAI(char chessMap[15][15]) {
     
     // VC 的攻击深度和防御深度设置在这里初始化，可以动态设置
     fiveChess.VCDEPTH = 4;
-    fiveChess.VCDEPTH_END = 14;
+    fiveChess.VCDEPTH_END = 8;
     fiveChess.VCDEPTH_DIS =2;
     
     fiveChess.VCDE_DEPTH = 4;
-    fiveChess.VCDE_DEPTH_END = 14;
+    fiveChess.VCDE_DEPTH_END = 8;
     fiveChess.VCDE_DEPTH_DIS = 2;
     
     fiveChess.grade = 2;

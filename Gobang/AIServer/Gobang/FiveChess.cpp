@@ -2082,7 +2082,7 @@ bool FiveChess::PeopleAttack(int r,int c,int depthCFromIGT)
  */
 void FiveChess::AI()
 {
-    startTime = 0;
+    startTime = getCurrentTime();
     UpdateLimit();
     
     isDefend = false;
@@ -2242,7 +2242,7 @@ void FiveChess::AI()
 // 当对方进攻不积极的时候，这时计算机就应该主动进攻
 void FiveChess::ControlDepth()
 {
-    DEPTH = 12; //默认
+    DEPTH = 8; //默认
     
     if(nCount < 6)
     {
