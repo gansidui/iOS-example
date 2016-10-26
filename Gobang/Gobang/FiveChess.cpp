@@ -1746,24 +1746,24 @@ pair<int,int> FiveChess::GetCurrentMaxPoint(char chessFlag)
                 if(chessFlag == cComputer)
                 {
                     people[row][col] = GetScoreForComputer(row,col,cPeople);
-                    if (chong4 || tiaochong4 || lian3 || tiao3) {
+                    if (huo4) {
                         people[row][col] += addAroundScore(row, col, cComputer, cPeople);
                     }
 
                     computer[row][col] = GetScoreForComputer(row,col,cComputer);
-                    if (chong4 || tiaochong4 || lian3 || tiao3) {
+                    if (huo4) {
                         computer[row][col] += addAroundScore(row, col, cComputer, cComputer);
                     }
                 }
                 else
                 {
                     people[row][col] = GetScoreForPeople(row,col,cPeople);
-                    if (chong4 || tiaochong4 || lian3 || tiao3) {
+                    if (huo4) {
                         people[row][col] += addAroundScore(row, col, cPeople, cPeople);
                     }
                     
                     computer[row][col] = GetScoreForPeople(row,col,cComputer);
-                    if (chong4 || tiaochong4 || lian3 || tiao3) {
+                    if (huo4) {
                         computer[row][col] += addAroundScore(row, col, cPeople, cComputer);
                     }
                 }
