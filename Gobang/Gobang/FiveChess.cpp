@@ -1713,6 +1713,23 @@ void FiveChess::PeoplePlay()
 }
 
 
+// 每个点的价值还应该与周围的点有关，现在将累加周围点价值乘以一个系数
+int FiveChess::addAroundScore(int row, int col, char curFlag, char chessFlag) {
+    int count = 0;
+    for (int i = max(0, row-1); i < min(SIZE, row+1); ++i) {
+        for (int j = max(0, col-1); j < min(SIZE, col+1); ++j) {
+            if (SPACE == chessMap[i][j]) {
+                if (curFlag == cComputer) {
+                    count += (GetScoreForComputer(i, j, chessFlag) * 0.8);
+                } else {
+                    count += (GetScoreForPeople(i, j, chessFlag) * 0.8);
+                }
+            }
+        }
+    }
+    return count;
+}
+
 //得到并返回当前价值最大点
 pair<int,int> FiveChess::GetCurrentMaxPoint(char chessFlag)
 {
@@ -1729,12 +1746,26 @@ pair<int,int> FiveChess::GetCurrentMaxPoint(char chessFlag)
                 if(chessFlag == cComputer)
                 {
                     people[row][col] = GetScoreForComputer(row,col,cPeople);
+                    if (chong4 || tiaochong4 || lian3 || tiao3) {
+                        people[row][col] += addAroundScore(row, col, cComputer, cPeople);
+                    }
+
                     computer[row][col] = GetScoreForComputer(row,col,cComputer);
+                    if (chong4 || tiaochong4 || lian3 || tiao3) {
+                        computer[row][col] += addAroundScore(row, col, cComputer, cComputer);
+                    }
                 }
                 else
                 {
                     people[row][col] = GetScoreForPeople(row,col,cPeople);
+                    if (chong4 || tiaochong4 || lian3 || tiao3) {
+                        people[row][col] += addAroundScore(row, col, cPeople, cPeople);
+                    }
+                    
                     computer[row][col] = GetScoreForPeople(row,col,cComputer);
+                    if (chong4 || tiaochong4 || lian3 || tiao3) {
+                        computer[row][col] += addAroundScore(row, col, cPeople, cComputer);
+                    }
                 }
             }
         }

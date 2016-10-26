@@ -113,6 +113,9 @@ private:
     // 上面两个函数的辅助函数，flag为 cComputer 表示站在计算机的角度，为 cPeople表示站在人的角度
     int GetScore(int row,int col,char chessFlag,char flag);
     
+    // 每个点的价值还应该与周围的点有关，现在将累加周围点价值乘以一个系数
+    int addAroundScore(int row, int col, char curFlag, char chessFlag);
+    
     //得到并返回当前价值最大点，chessFlag 为 cComputer表示站在计算机的角度，为cPeople表示站在人的角度
     pair<int,int> GetCurrentMaxPoint(char chessFlag);
     
