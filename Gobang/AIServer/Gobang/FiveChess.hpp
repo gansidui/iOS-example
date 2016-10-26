@@ -148,6 +148,7 @@ private:
     long startTime;
     long getCurrentTime();  // 获取当前时间，用于超时判断
     bool isTimeout();    // 超时判断，返回true表示超时
+    bool vcTimeout();    // VC攻击时超时，该值为总超时时间的 3/4， 因为先进行VC攻击逻辑，不能消耗掉全部时间
     ////
     
 public:
@@ -182,6 +183,7 @@ public:
      1 ：表示计算机正在进行 VCF 攻击
      2 ：表示计算机正在阻止人进行 VCF 攻击
      3 ：表示计算机正在进行 VCF 和 VCT 联合攻击
+     4 : 表示计算机正在阻止人的 VCF 和 VCT 联合攻击
      */
     int AIState;  // 在 VCAttack() 中设置
     

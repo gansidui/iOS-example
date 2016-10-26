@@ -2242,7 +2242,7 @@ void FiveChess::AI()
 // 当对方进攻不积极的时候，这时计算机就应该主动进攻
 void FiveChess::ControlDepth()
 {
-    DEPTH = 8; //默认
+    DEPTH = 12; //默认
     
     if(nCount < 6)
     {
@@ -2422,7 +2422,7 @@ bool FiveChess::LayOut()
 void FiveChess::VCAttackTree(int type,int row,int col,char cOneself,char cOpposite,int depth,bool& flag,int& ansDepth,int depthRecord)
 {
     // 超时控制
-    if (isTimeout()) {
+    if (vcTimeout()) {
         return;
     }
     
@@ -2638,6 +2638,7 @@ bool FiveChess::VCAttack()
             comX = tempX;
             comY = tempY; 
             AIState = 1; //
+            printf("计算机正在进行 VCF 攻击\n");
             return true;
         }
         
@@ -2772,6 +2773,7 @@ bool FiveChess::VCAttack()
                 comX = tempX;
                 comY = tempY; 
                 AIState = 3;
+                printf("计算机正在进行 VCF 和 VCT 联合攻击\n");
                 return true;
             }
         }
@@ -2943,6 +2945,7 @@ bool FiveChess::VCAttack()
             comX = tempX;
             comY = tempY; 
             AIState = 4;
+            printf("计算机正在阻止人的 VCF 和 VCT 联合攻击\n");
             return true;
         }
     }
@@ -2980,3 +2983,11 @@ bool FiveChess::isTimeout() {
     }
     return false;
 }
+
+bool FiveChess::vcTimeout() {
+    if (startTime + timeoutMS*3/4 < getCurrentTime()) {
+        return true;
+    }
+    return false;
+}
+
