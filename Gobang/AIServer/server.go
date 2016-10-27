@@ -1,10 +1,10 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"net/http"
-	"strconv"
 	"time"
 
 	"./Gobang"
@@ -32,12 +32,12 @@ func handlerAI(w http.ResponseWriter, r *http.Request) {
 	w_json := r_json
 
 	// 0 - 控制消息    1 - 下棋消息
-	msg_type := r_json.GetPath("head", "type").MustString()
+	msg_type := r_json.GetPath("head", "type").MustInt()
 	fmt.Println("---------------------------------------------------")
 	fmt.Println("request type:", msg_type, string(r_data))
 	fmt.Println("---------------------------------------------------")
 
-	if msg_type == "0" {
+	if msg_type == 0 {
 		player_black := r_json.GetPath("body", "player_black").MustMap()
 
 		// 请求和回复的数据结构都一样，修改部分字段回复即可
@@ -65,12 +65,9 @@ func handlerAI(w http.ResponseWriter, r *http.Request) {
 		m := r_json.GetPath("body", "steps").MustArray()
 		for _, v := range m {
 			var m2 map[string]interface{} = v.(map[string]interface{})
-			x := m2["x"].(string)
-			y := m2["y"].(string)
+			xi, _ := m2["x"].(json.Number).Int64()
+			yi, _ := m2["y"].(json.Number).Int64()
 			side := m2["side"].(string)
-
-			xi, _ := strconv.ParseInt(x, 10, 8)
-			yi, _ := strconv.ParseInt(y, 10, 8)
 
 			if xi >= 1 && xi <= 15 && yi >= 1 && yi <= 15 {
 				if side == "w" {
@@ -94,15 +91,15 @@ func handlerAI(w http.ResponseWriter, r *http.Request) {
 			steps_json.Set("side", "w")
 		}
 
-		steps_json.Set("x", strconv.FormatInt(int64(row+1), 10))
-		steps_json.Set("y", strconv.FormatInt(int64(col+1), 10))
+		steps_json.Set("x", row+1)
+		steps_json.Set("y", col+1)
 		steps_json.Set("time", getTime())
 
 		w_json := r_json
 
-		stepArray := r_json.GetPath("body", "steps").MustArray()
-		stepArray = append(stepArray, steps_json)
-		w_json.SetPath([]string{"body", "steps"}, stepArray)
+		// stepArray := r_json.GetPath("body", "steps").MustArray()
+		// stepArray = append(stepArray, steps_json)
+		w_json.SetPath([]string{"body", "steps"}, []*simplejson.Json{steps_json})
 	}
 
 	w_json_bytes, _ := w_json.Encode()
