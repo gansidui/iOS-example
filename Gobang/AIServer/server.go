@@ -13,7 +13,7 @@ import (
 
 func main() {
 	fmt.Println("listening: 80 ...")
-	http.HandleFunc("/gg", handlerAI)
+	http.HandleFunc("/AI", handlerAI)
 	http.ListenAndServe(":80", nil)
 }
 
