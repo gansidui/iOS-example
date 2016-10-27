@@ -2739,8 +2739,8 @@ bool FiveChess::VCAttack()
         sort(vcPoint,vcPoint+cnt); //
         
         int VCDEPTH_temp = VCDEPTH, VCDEPTH_END_temp = VCDEPTH_END;
-        // 防守姿态，如果步数过少，那么这种联合攻击的搜索深度不应该太大
-        if (nCount < 15) {
+        // 如果计算机执白棋，那么采取防守姿态，步数过少的情况下，这种联合攻击的搜索深度不应该太大
+        if (cComputer == WHITE_CHESS && nCount < 15) {
             VCDEPTH_temp = 4;
             VCDEPTH_END_temp = 4;
         }
