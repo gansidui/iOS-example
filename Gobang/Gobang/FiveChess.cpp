@@ -2631,6 +2631,7 @@ bool FiveChess::VCAttack()
                         tempY = vcPoint[i].col;
                     }
                 }
+                printf("***** ansDepth = %d ****\n", ansDepth);
             }
         }
         if( ff )
@@ -2692,6 +2693,7 @@ bool FiveChess::VCAttack()
                 ff = true; //
                 i = cnt;
                 tempDepth = VCDE_DEPTH_END+1;
+                printf("***** ansDepth = %d ****\n", ansDepth);
             }
         }		
     }
@@ -2699,11 +2701,13 @@ bool FiveChess::VCAttack()
     {
         peoIsVCF = true;
         AIState = 2;
+        printf("计算机正在阻止人的 VCF 攻击\n");
     }
     
     ff = false;
     
     //判断计算机能否通过 VCF和VCT联合攻击取胜,  前提是人不能进行 VCF攻击
+    // 注意： 在一定步数以内，联合攻击很容易被对方化解，所以递归深度不宜深
     //////////////////////////////////////////////////////////////////////////
     if(!peoIsVCF)
     {
@@ -2734,7 +2738,13 @@ bool FiveChess::VCAttack()
         }
         sort(vcPoint,vcPoint+cnt); //
         
-        for(tempDepth = VCDEPTH; tempDepth <= VCDEPTH_END; tempDepth += VCDEPTH_DIS)//深度不断递增
+        int VCDEPTH_temp = VCDEPTH, VCDEPTH_END_temp = VCDEPTH_END;
+        // 防守姿态，如果步数过少，那么这种联合攻击的搜索深度不应该太大
+        if (nCount < 15) {
+            VCDEPTH_temp = 4;
+            VCDEPTH_END_temp = 4;
+        }
+        for(tempDepth = VCDEPTH_temp; tempDepth <= VCDEPTH_END_temp; tempDepth += VCDEPTH_DIS)//深度不断递增
         {
             depthMM = tempDepth; //
             for(int i=0;i<cnt;++i)
@@ -2765,7 +2775,7 @@ bool FiveChess::VCAttack()
                             tempY = vcPoint[i].col;
                         }
                     }
-                    
+                    printf("***** ansDepth = %d ****\n", ansDepth);
                 }
             }
             if( ff )
@@ -2844,6 +2854,7 @@ bool FiveChess::VCAttack()
                         tempY = vcPoint[i].col;
                     }
                 }
+                printf("***** ansDepth = %d ****\n", ansDepth);
             }
         }
         if( ff ) 
