@@ -142,9 +142,9 @@ void FiveChess::UpdateLimit()
                 if (j > ri) {
                     ri = j;
                 }
+                
+                ++nCount;
             }
-            
-            ++nCount;
         }
     }
     
