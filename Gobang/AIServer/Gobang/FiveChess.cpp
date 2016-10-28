@@ -2067,6 +2067,15 @@ bool FiveChess::PeopleAttack(int r,int c,int depthCFromIGT)
                     chessMap[r][c] = SPACE;
                     return true;
                 }
+                
+                flag = false;
+                ansDepth = 9999;
+                VCAttackTree(2,row,col,cPeople,cComputer,0,flag,ansDepth,depthRecord);
+                if (flag) {
+                    chessMap[row][col] = SPACE;
+                    chessMap[r][c] = SPACE;
+                    return true;
+                }
             }
             
             
