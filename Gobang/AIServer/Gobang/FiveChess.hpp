@@ -147,8 +147,8 @@ private:
     // ----
     long startTime;
     long getCurrentTime();  // 获取当前时间，用于超时判断
-    bool isTimeout();    // 超时判断，返回true表示超时
-    bool vcTimeout();    // VC攻击时超时，该值为总超时时间的 3/4， 因为先进行VC攻击逻辑，不能消耗掉全部时间
+    bool isTimeout();    // 超时判断，返回true表示超时，总超时时间是9秒，VCAttack为6秒，其余为3秒
+    void setTimeout(long timeout);   // 重置超时时间
     ////
     
 public:

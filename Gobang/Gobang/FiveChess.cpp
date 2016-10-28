@@ -2106,7 +2106,7 @@ bool FiveChess::PeopleAttack(int r,int c,int depthCFromIGT)
  */
 void FiveChess::AI()
 {
-    startTime = getCurrentTime();
+    setTimeout(9000);  // 总超时时间为9秒
     UpdateLimit();
     
     isDefend = false;
@@ -2123,10 +2123,12 @@ void FiveChess::AI()
     
     printf("******** VCAttacking *******\n");
     // AI 等级为 2 时才进行 VC 攻击
+    setTimeout(6000);  // 设置VCAttack超时时间
     if(2 == grade && VCAttack()) // 可以进行 VC 攻击
         return ;
     printf("******** VCAttack finished *******\n");
     
+    setTimeout(9000 - (getCurrentTime() - startTime));  // 其余超时时间
     ControlDepth(); // 设置递归深度
     
     int row,col,depthRecord = 999,maxScore = -999;
@@ -2202,6 +2204,7 @@ void FiveChess::AI()
                     }
                 }
                 safeFlag = true; ///
+                printf("*****计算机拍屁股可赢: depthC = %d*****\n", depthC);
             }
         }
         
@@ -2210,7 +2213,7 @@ void FiveChess::AI()
     comX = tempX;
     comY = tempY;
     
-    if(!safeFlag) // 需要检查人是否能赢
+    if(!safeFlag && nCount < 15) // 需要检查人是否能赢
     {
         PeoplePlay();
         bool flag = false;
@@ -2254,6 +2257,56 @@ void FiveChess::AI()
             
             comX = tempX;
             comY = tempY;
+        }
+        
+    }
+    // 上面才是靠谱的，这里测试AI，管他呢
+    else if(!safeFlag && nCount >= 15) // 需要检查人是否能赢
+    {
+        chessMap[comX][comY] = cComputer;  // 假定计算机下这里
+        
+        PeoplePlay();
+        if( winPeople )  //人能赢，计算机则阻挡
+        {
+            if(BLACK_CHESS != cComputer ||  !IsKinjite(peoX,peoY)) // 不是计算机的禁手点
+            {
+                chessMap[comX][comY] = SPACE;  // 恢复
+                comX = peoX;
+                comY = peoY;
+                return;
+            }
+        }
+        
+        // 检查人下了某个点后可以构成VC攻击
+        {
+            int temp_comX = comX;
+            int temp_comY = comY;
+            VCPoint vcPoint[100] = {0};
+            int cnt = 0;
+            for (row = top; row <= bottom; ++row) {
+                for (col = left; col <= right; ++col) {
+                    if(chessMap[row][col] != SPACE)
+                        continue;
+                    if( BLACK_CHESS == cPeople && IsKinjite(row,col)) //人不能下自己的禁手点
+                        continue;
+                    vcPoint[cnt++].init(row, col, GetScoreForPeople(row, col, cPeople));
+                }
+            }
+            sort(vcPoint, vcPoint+cnt); // 按分值排序
+            
+            for (int i = 0; i < cnt; ++i) {
+                chessMap[vcPoint[i].row][vcPoint[i].col] = cPeople;  // 人下这一点
+                if (VCAttack()) {
+                    // 人能够赢
+                    if (AIState == 2 || AIState == 4) {
+                        printf("*******计算机正在阻止人潜在的VC攻击*****\n");
+                        return;
+                    }
+                }
+            }
+            
+            comX = temp_comX;
+            comY = temp_comY;
         }
         
     }
@@ -2446,7 +2499,7 @@ bool FiveChess::LayOut()
 void FiveChess::VCAttackTree(int type,int row,int col,char cOneself,char cOpposite,int depth,bool& flag,int& ansDepth,int depthRecord)
 {
     // 超时控制
-    if (vcTimeout()) {
+    if (isTimeout()) {
         return;
     }
     
@@ -3019,10 +3072,7 @@ bool FiveChess::isTimeout() {
     return false;
 }
 
-bool FiveChess::vcTimeout() {
-    if (startTime + timeoutMS*3/4 < getCurrentTime()) {
-        return true;
-    }
-    return false;
+void FiveChess::setTimeout(long timeout) {
+    timeoutMS = timeout;
+    startTime = getCurrentTime();
 }
-
