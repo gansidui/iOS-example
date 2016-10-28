@@ -2213,7 +2213,7 @@ void FiveChess::AI()
     comX = tempX;
     comY = tempY;
     
-    if(!safeFlag && nCount < 15) // 需要检查人是否能赢
+    if(!safeFlag) // 需要检查人是否能赢
     {
         PeoplePlay();
         bool flag = false;
@@ -2260,56 +2260,56 @@ void FiveChess::AI()
         }
         
     }
-    // 上面才是靠谱的，这里测试AI，管他呢
-    else if(!safeFlag && nCount >= 15) // 需要检查人是否能赢
-    {
-        chessMap[comX][comY] = cComputer;  // 假定计算机下这里
-        
-        PeoplePlay();
-        if( winPeople )  //人能赢，计算机则阻挡
-        {
-            if(BLACK_CHESS != cComputer ||  !IsKinjite(peoX,peoY)) // 不是计算机的禁手点
-            {
-                chessMap[comX][comY] = SPACE;  // 恢复
-                comX = peoX;
-                comY = peoY;
-                return;
-            }
-        }
-        
-        // 检查人下了某个点后可以构成VC攻击
-        {
-            int temp_comX = comX;
-            int temp_comY = comY;
-            VCPoint vcPoint[100] = {0};
-            int cnt = 0;
-            for (row = top; row <= bottom; ++row) {
-                for (col = left; col <= right; ++col) {
-                    if(chessMap[row][col] != SPACE)
-                        continue;
-                    if( BLACK_CHESS == cPeople && IsKinjite(row,col)) //人不能下自己的禁手点
-                        continue;
-                    vcPoint[cnt++].init(row, col, GetScoreForPeople(row, col, cPeople));
-                }
-            }
-            sort(vcPoint, vcPoint+cnt); // 按分值排序
-            
-            for (int i = 0; i < cnt; ++i) {
-                chessMap[vcPoint[i].row][vcPoint[i].col] = cPeople;  // 人下这一点
-                if (VCAttack()) {
-                    // 人能够赢
-                    if (AIState == 2 || AIState == 4) {
-                        printf("*******计算机正在阻止人潜在的VC攻击*****\n");
-                        return;
-                    }
-                }
-            }
-            
-            comX = temp_comX;
-            comY = temp_comY;
-        }
-        
-    }
+//    // 上面才是靠谱的，这里测试AI，管他呢
+//    else if(!safeFlag && nCount >= 15) // 需要检查人是否能赢
+//    {
+//        chessMap[comX][comY] = cComputer;  // 假定计算机下这里
+//        
+//        PeoplePlay();
+//        if( winPeople )  //人能赢，计算机则阻挡
+//        {
+//            if(BLACK_CHESS != cComputer ||  !IsKinjite(peoX,peoY)) // 不是计算机的禁手点
+//            {
+//                chessMap[comX][comY] = SPACE;  // 恢复
+//                comX = peoX;
+//                comY = peoY;
+//                return;
+//            }
+//        }
+//        
+//        // 检查人下了某个点后可以构成VC攻击
+//        {
+//            int temp_comX = comX;
+//            int temp_comY = comY;
+//            VCPoint vcPoint[100] = {0};
+//            int cnt = 0;
+//            for (row = top; row <= bottom; ++row) {
+//                for (col = left; col <= right; ++col) {
+//                    if(chessMap[row][col] != SPACE)
+//                        continue;
+//                    if( BLACK_CHESS == cPeople && IsKinjite(row,col)) //人不能下自己的禁手点
+//                        continue;
+//                    vcPoint[cnt++].init(row, col, GetScoreForPeople(row, col, cPeople));
+//                }
+//            }
+//            sort(vcPoint, vcPoint+cnt); // 按分值排序
+//            
+//            for (int i = 0; i < cnt; ++i) {
+//                chessMap[vcPoint[i].row][vcPoint[i].col] = cPeople;  // 人下这一点
+//                if (VCAttack()) {
+//                    // 人能够赢
+//                    if (AIState == 2 || AIState == 4) {
+//                        printf("*******计算机正在阻止人潜在的VC攻击*****\n");
+//                        return;
+//                    }
+//                }
+//            }
+//            
+//            comX = temp_comX;
+//            comY = temp_comY;
+//        }
+//        
+//    }
     
 }
 
