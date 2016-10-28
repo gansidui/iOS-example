@@ -2054,6 +2054,21 @@ bool FiveChess::PeopleAttack(int r,int c,int depthCFromIGT)
             
             depthRecord = depthCFromIGT; //
             
+            // 先看人能不能进行vc攻击，再考虑其他的
+            {
+                chessMap[row][col] = cPeople;
+                
+                bool flag = false;
+                int ansDepth = 9999;
+                VCAttackTree(1,row,col,cPeople,cComputer,0,flag,ansDepth,depthRecord);
+                if (flag /*&& ansDepth < depthRecord*/) {
+                    // 人能赢
+                    chessMap[row][col] = SPACE;
+                    chessMap[r][c] = SPACE;
+                    return true;
+                }
+            }
+            
             
             AgainGameTree(row,col,0,depthC,depthP,stop,depthRecord);
             
@@ -2244,9 +2259,9 @@ void FiveChess::ControlDepth()
 {
     DEPTH = 8; //默认
     
-    if(nCount < 6)
+    if(nCount < 8)
     {
-        DEPTH = 4;
+        DEPTH = 2;
         return ;
     }
     
