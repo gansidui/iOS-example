@@ -1302,9 +1302,9 @@ int FiveChess::GetScore(int row,int col,char chessFlag,char flag)
         
         score += chong4 *230;
         score += tiaochong4*110;
-        score += lian3 * 320;
+        score += lian3 * 420;
         score += tiao3 * 150; //tiao3必定多加了一个tiao2的分
-        score += lian2* 160;
+        score += lian2* 170;
         score += tiao2 * 150;
         
         if((chong4+tiaochong4+huo4) && (lian2+tiao2>=2) )
@@ -1343,9 +1343,9 @@ int FiveChess::GetScore(int row,int col,char chessFlag,char flag)
         
         score += chong4 *230;
         score += tiaochong4*110;
-        score += lian3 * 320;
+        score += lian3 * 420;
         score += tiao3 * 150; //tiao3必定多加了一个tiao2的分
-        score += lian2* 160;
+        score += lian2* 170;
         score += tiao2 * 150;
         
         if((chong4+tiaochong4+huo4) && (lian2+tiao2>=2) )
@@ -2899,8 +2899,8 @@ bool FiveChess::VCAttack()
                     
                     if( !res1 && !res2)
                         continue;
-                    else if( (3 == res1 || 4 == res1) && !res2 ) //一般情况下不要下自己冲4和跳冲4
-                        continue;
+//                    else if( (3 == res1 || 4 == res1) && !res2 ) //一般情况下不要下自己冲4和跳冲4
+//                        continue;
                     
                     int res = GetScoreForComputer(row,col,cComputer);
                     res += GetScoreForComputer(row,col,cPeople);
