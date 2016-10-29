@@ -2327,52 +2327,50 @@ void FiveChess::ControlDepth()
         return ;
     }
     
-    return ; // 进攻好了，防守个毛
-    /*
+//    return ; // 进攻好了，防守个毛
+    
      int row,col;
      // people
      for(row=top;row<=bottom;++row)
      {
-     for(col=left;col<=right;++col)
-     {
-     if(chessMap[row][col] != SPACE)
-     continue;
-     Search(row,col,cPeople);
-     if(lian2+tiao2>=3)
-     DEPTH = min(DEPTH,7);
-     if(chong4)
-     DEPTH = min(DEPTH,6);
-     if(lian3+tiao3)
-     DEPTH = min(DEPTH,6);
-     
-     if(lian2+tiao2 && lian3+tiao3)
-     DEPTH = min(DEPTH,5);
-     if(chong4 && chong3 && lian2+tiao2)
-     DEPTH = min(DEPTH,5);
-     if(chong4 && chong3>=2)
-     DEPTH = min(DEPTH,5);
-     }
+         for(col=left;col<=right;++col)
+         {
+             if(chessMap[row][col] != SPACE)
+                 continue;
+             Search(row,col,cPeople);
+             if(lian2+tiao2>=3)
+                 DEPTH = min(DEPTH,3);
+             if(chong4)
+                 DEPTH = min(DEPTH,5);
+             if(lian3+tiao3)
+                 DEPTH = min(DEPTH,4);
+             
+             if(lian2+tiao2 && lian3+tiao3)
+                 DEPTH = min(DEPTH,4);
+             if(chong4 && chong3 && lian2+tiao2)
+                 DEPTH = min(DEPTH,3);
+             if(chong4 && chong3>=2)
+                 DEPTH = min(DEPTH,3);
+         }
      }
      // computer
      for(row=top;row<=bottom;++row)
      {
-     for(col=left;col<=right;++col)
-     {
-     if(chessMap[row][col] != SPACE)
-     continue;
-     Search(row,col,cComputer);
-     
-     if(chong4 && chong3) 
-     ++DEPTH;
-     if(chong4 && lian2+tiao2)
-     ++DEPTH;
-     if(lian3+tiao3 && chong3)
-     ++DEPTH;
+         for(col=left;col<=right;++col)
+         {
+             if(chessMap[row][col] != SPACE)
+                 continue;
+             Search(row,col,cComputer);
+             
+             if(chong4 && chong3) 
+                 ++DEPTH;
+             if(chong4 && lian2+tiao2)
+                 ++DEPTH;
+             if(lian3+tiao3 && chong3)
+                 ++DEPTH;
+         }
      }
-     }
-     DEPTH = min(DEPTH,10);
-     */
-    
+     DEPTH = min(DEPTH,8);
 }
 
 // 布局
