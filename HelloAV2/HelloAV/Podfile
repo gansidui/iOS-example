@@ -5,7 +5,10 @@ target 'HelloAV' do
 pod 'AFNetworking'
 pod 'SDWebImage'
 pod 'MJRefresh'
+pod 'MJExtension'
+pod 'Masonry'
 pod 'MBProgressHUD'
+pod 'BlocksKit'
 pod 'QBImagePickerController'
 
 end

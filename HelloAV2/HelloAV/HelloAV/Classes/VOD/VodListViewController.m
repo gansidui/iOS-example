@@ -7,21 +7,25 @@
 //
 
 #import "VodListViewController.h"
+#import <MJRefresh/MJRefresh.h>
 
-@interface VodListViewController ()
+@interface VodListViewController () <UICollectionViewDelegate,UICollectionViewDataSource>
 
 @end
 
 @implementation VodListViewController
 {
-    NSMutableArray  *_vodList;
+    NSMutableArray    *_videoList;
+    UICollectionView  *_tableView;
+    BOOL              *_isLoading;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.view.backgroundColor = [UIColor redColor];
+    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+    [layout setScrollDirection:UICollectionViewScrollDirectionVertical];
 }
 
 - (void)didReceiveMemoryWarning {
