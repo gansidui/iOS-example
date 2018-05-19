@@ -1,0 +1,11 @@
+platform :ios, '8.0'
+
+target 'HelloAV' do
+
+pod 'AFNetworking'
+pod 'SDWebImage'
+pod 'MJRefresh'
+pod 'MBProgressHUD'
+pod 'QBImagePickerController'
+
+end
