@@ -51,3 +51,5 @@ Carthage/Build
 
 fastlane/report.xml
 fastlane/screenshots
+
+HelloAV2/HelloAV/HelloAV/Frameworks/TXLiteAVSDK_Professional.framework/TXLiteAVSDK_Professional
